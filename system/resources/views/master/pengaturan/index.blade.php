@@ -16,12 +16,6 @@
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 			<i class="fa fa-plus"></i> Pengaturan waktu
 		</button>
-
-
-		<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalBuatAdmin">
-			<i class="fa fa-plus"></i>Tambah Admin
-		</button>
-
 		<!-- Modal  seiting waktu-->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -35,7 +29,7 @@
 					<div class="modal-body">
 						<form action="{{url('master/pengaturan/update')}}" method="post">
 							@csrf
-							<span>Jam Masuk</span>
+							<span>Jam Pergi</span>
 							<input type="time" name="jam_masuk" class="form-control mb-3" value="{{$pengaturan->jam_masuk}}">
 
 							<span>Jam Pulang</span>

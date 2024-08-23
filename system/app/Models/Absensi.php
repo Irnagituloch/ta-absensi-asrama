@@ -39,4 +39,8 @@ class Absensi extends Authenticatable
     return $this->belongsTo(User::class, 'absensi_rfid','rfid');
 }
 
+   function pelanggar(){
+    return $this->belongsTo(User::class, 'absensi_user_id');
+}
+
 }

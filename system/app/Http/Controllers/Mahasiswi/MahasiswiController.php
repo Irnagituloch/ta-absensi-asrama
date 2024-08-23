@@ -15,18 +15,35 @@ class MahasiswiController extends Controller
 {
     function beranda(){
      $auth = Auth::user();
+
+ $pengaturan = Pengaturan::where('id', 1)->first();
+
+    if (!$pengaturan) {
+        $pulang = now(); // Example default time
+        $masuk = now(); // Example default time
+    } else {
+        $pulang = $pengaturan->jam_pulang;
+        $masuk = $pengaturan->jam_masuk;
+    }
+    
+    // Query using $pulang and $masuk values
+    $data['totalPelanggaran'] = Absensi::where('absensi_user_id',$auth->user_id)
+    ->whereTime('absensi_jam', '>', $pulang)
+    ->orWhereTime('absensi_jam', '<', $masuk)
+    ->count();
+
+
      $data['totalJurusan'] = Jurusan::where('flag_erase',1)->count();
      $data['totalJurusan'] = Jurusan::where('flag_erase',1)->count();
      $data['totalMahasiswi'] = User::where('flag_erase', 1)->where('level',2)->count();
      $data['totalPeringatan'] = Peringatan::where('flag_erase', 1)->where('peringatan_user_id',$auth->user_id)->count();
-     $data['totalPelanggaran'] = Absensi::whereTime('absensi_jam', '>', '22:00:00')->count();
      return view('mahasiswi.beranda',$data);
  }
 
 
 
  function indexPelanggaran(){
-        // buat folder dalam system->resource->view->dlll...
+
      $auth = Auth::user();
      $pelanggaran = Pengaturan::first();
 
@@ -41,7 +58,6 @@ class MahasiswiController extends Controller
         $masuk = $pengaturan->jam_masuk;
     }
     
-    // Query using $pulang and $masuk values
     $data['list_pelanggaran'] = Absensi::where('absensi_user_id',$auth->user_id)->where(function($query) use ($pulang, $masuk) {
         $query->whereTime('absensi_jam', '>', $pulang)
         ->orWhereTime('absensi_jam', '<', $masuk);

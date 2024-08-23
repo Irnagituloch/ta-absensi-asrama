@@ -27,7 +27,7 @@
 					@foreach($list_pelanggaran->sortByDesc('created_at') as $item)
 					<tr>
 						<th>{{$loop->iteration}}</th>
-						<th>{{ucwords($item->user->nama ?? "Data siswa telah dihapus")}}</th>
+						<th>{{ucwords($item->pelanggar->nama ?? "Data siswa telah dihapus")}}</th>
 						<th>{{$item->absensi_jam}}</th>
 						<th>{{$item->created_at}}</th>
 					</tr>

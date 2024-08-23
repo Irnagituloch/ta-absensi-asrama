@@ -27,10 +27,13 @@ class MasterPelanggaranController extends Controller
     }
     
     // Query using $pulang and $masuk values
-    $data['list_pelanggaran'] = Absensi::where(function($query) use ($pulang, $masuk) {
-        $query->whereTime('absensi_jam', '>', $pulang)
-            ->orWhereTime('absensi_jam', '<', $masuk);
-    })->get();
+    $data['list_pelanggaran'] = Absensi::whereTime('absensi_jam', '>', $pulang)
+    ->orWhereTime('absensi_jam', '<', $masuk)->get();
+
+    // $data['list_pelanggaran'] = Absensi::where(function($query) use ($pulang, $masuk) {
+    //     $query->whereTime('absensi_jam', '>', $pulang)
+    //         ->orWhereTime('absensi_jam', '<', $masuk);
+    // })->get();
 
         return view('master.pelanggaran.index',$data);
 
